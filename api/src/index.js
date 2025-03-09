@@ -5,6 +5,7 @@ import { logger } from "./utils/logger.util.js";
 import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import jobRoutes from "./routes/job.route.js";
 
 dotenv.config();
 
@@ -24,6 +25,9 @@ app.use(
   })
 );
 app.use(express.json());
+
+// Mount the job routes
+app.use("/api/jobs", jobRoutes);
 
 app.use(errorMiddleware);
 
