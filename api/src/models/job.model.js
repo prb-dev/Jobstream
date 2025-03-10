@@ -29,7 +29,7 @@ const jobSchema = new mongoose.Schema(
       employerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User",
+        // ref: "User",
       },
       phoneNumber: {
         type: String,
