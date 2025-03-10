@@ -1,5 +1,5 @@
-import { Job } from "../models/job.model.js";
-import { customError } from "../utils/error.util.js";
+import { Job } from "../../models/job.model.js";
+import { customError } from "../../utils/error.util.js";
 
 export const deleteJob = async (req, res, next) => {
   try {

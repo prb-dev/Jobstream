@@ -1,17 +1,14 @@
 import { Router } from "express";
-import { createJob } from "../controllers/createJob.controller.js";
-import { updateJob } from "../controllers/updateJob.controller.js";
-import { deleteJob } from "../controllers/deleteJob.controller.js";
+import { createJob, updateJob, deleteJob } from "../controllers/jobs/index.js";
+import { verifyToken } from "../middlewares/verifyToken.middleware.js";
+import { verifyEmployer } from "../middlewares/verifyEmployer.middleware.js";
 
 const router = Router();
 
-// Create a new job
-router.post("/", createJob);
+router.post("/", verifyToken, verifyEmployer, createJob);
 
-// Update an existing job
-router.put("/:id", updateJob);
+router.put("/:id", verifyToken, verifyEmployer, updateJob);
 
-// Delete a job
-router.delete("/:id", deleteJob);
+router.delete("/:id", verifyToken, verifyEmployer, deleteJob);
 
 export default router;

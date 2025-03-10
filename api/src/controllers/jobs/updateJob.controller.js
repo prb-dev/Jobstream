@@ -1,14 +1,30 @@
-import { Job } from "../models/job.model.js";
-import { customError } from "../utils/error.util.js";
+import { Job } from "../../models/job.model.js";
+import { customError } from "../../utils/error.util.js";
 
 export const updateJob = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, description, company, location, salaryRange, posterEmail, contactNumber } = req.body;
+    const {
+      title,
+      description,
+      company,
+      employer,
+      salaryRange,
+      jobType,
+      keywords,
+    } = req.body;
 
     const updatedJob = await Job.findByIdAndUpdate(
       id,
-      { title, description, company, location, salaryRange, posterEmail, contactNumber },
+      {
+        title,
+        description,
+        company,
+        employer,
+        salaryRange,
+        jobType,
+        keywords,
+      },
       { new: true, runValidators: true }
     );
 

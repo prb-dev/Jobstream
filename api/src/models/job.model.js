@@ -11,31 +11,55 @@ const jobSchema = new mongoose.Schema(
       required: [true, "Job description is required"],
     },
     company: {
-      type: String,
-      required: [true, "Company name is required"],
+      name: {
+        type: String,
+        required: [true, "Company name is required"],
+      },
+      location: {
+        type: String,
+        default: "Remote",
+      },
+      mode: {
+        type: String,
+        enum: ["remote", "onsite", "hybrid"],
+        default: "remote",
+      },
     },
-    location: {
-      type: String,
-      default: "Remote",
+    employer: {
+      phoneNumber: {
+        type: String,
+        required: [true, "Employer phone number is required"],
+        validate: {
+          validator: function (value) {
+            return /^(?:\+94|0)?7\d{8}$/.test(value);
+          },
+          message: "Invalid Sri Lankan mobile number format",
+        },
+      },
+      employerEmail: {
+        type: String,
+        required: [true, "Employer email is required"],
+        match: [/.+@.+\..+/, "Invalid email format"],
+      },
     },
     salaryRange: {
-      type: String,
-      default: "Not specified",
-    },
-    posterEmail: {
-      type: String,
-      required: [true, "Poster email is required"],
-      match: [/.+@.+\..+/, "Invalid email format"]
-    },
-    contactNumber: {
-      type: String,
-      required: [true, "Contact number is required"],
-      validate: {
-        validator: function (value) {
-          return /^(?:\+94|0)?7\d{8}$/.test(value);
-        },
-        message: "Invalid Sri Lankan mobile number format",
+      min: {
+        type: Number,
+        default: 0,
       },
+      max: {
+        type: Number,
+        default: 0,
+      },
+    },
+    jobType: {
+      type: String,
+      enum: ["full-time", "internship", "contract"],
+      default: "full-time",
+    },
+    keywords: {
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }
