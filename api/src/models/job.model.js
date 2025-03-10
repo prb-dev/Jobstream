@@ -19,13 +19,18 @@ const jobSchema = new mongoose.Schema(
         type: String,
         default: "Remote",
       },
-      mode: {
-        type: String,
-        enum: ["remote", "onsite", "hybrid"],
-        default: "remote",
-      },
+    },
+    mode: {
+      type: String,
+      enum: ["remote", "onsite", "hybrid"],
+      default: "remote",
     },
     employer: {
+      employerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
+      },
       phoneNumber: {
         type: String,
         required: [true, "Employer phone number is required"],
