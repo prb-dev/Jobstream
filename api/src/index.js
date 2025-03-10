@@ -5,6 +5,7 @@ import { logger } from "./utils/logger.util.js";
 import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(errorMiddleware);
 
