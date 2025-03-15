@@ -27,6 +27,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
