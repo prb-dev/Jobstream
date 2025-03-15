@@ -23,6 +23,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
 
+# Create a directory for logs.
+RUN mkdir -p /usr/src/app/logs && chown -R node:node /usr/src/app/logs
+
 # Run the application as a non-root user.
 USER node
 
