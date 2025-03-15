@@ -1,16 +1,19 @@
 name: Snyk Static Code Analysis
 
-on: push
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   security:
     name: Code security
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
@@ -18,4 +21,3 @@ jobs:
         with:
           command: code test
           args: --severity-threshold=high
-          
