@@ -28,6 +28,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
 // Mount the job routes
 app.use("/api/jobs", jobRoutes);
 
