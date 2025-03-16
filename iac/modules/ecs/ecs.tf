@@ -44,8 +44,8 @@ resource "aws_ecs_task_definition" "task_definition" {
         ],
         "environment": [
         {
-            "name": "VAL",
-            "value": "${var.VAL}"
+            "name": "PORT",
+            "value": "${var.container_port}"
         }
         ]
     }
