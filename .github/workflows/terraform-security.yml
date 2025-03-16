@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - terraform
-
+      
 jobs:
   security:
     runs-on: ubuntu-latest
