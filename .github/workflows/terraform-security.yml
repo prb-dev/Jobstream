@@ -1,0 +1,24 @@
+name: Infrastructure Security Analysis
+
+on:
+  push:
+    branches:
+      - terraform
+  pull_request:
+    branches:
+      - terraform
+      
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          file: iac
+          args: --scan=planned-values
