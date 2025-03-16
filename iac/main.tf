@@ -34,3 +34,10 @@ module "ecs" {
   aws_region                     = local.aws_region
   aws_account_id                 = var.aws_account_id
 }
+
+module "gateway" {
+  source = "./modules/gateway"
+
+  http_api_name     = local.http_api_name
+  load_balancer_dns = module.ecs.load_balancer_dns
+}

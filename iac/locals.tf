@@ -12,4 +12,5 @@ locals {
   ecs_service_name               = "job-management"
   VAL                            = "hello from .env"
   aws_region                     = "eu-north-1"
+  http_api_name                  = "jobstream"
 }
