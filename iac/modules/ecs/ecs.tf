@@ -26,6 +26,28 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_policy" "ssm_access" {
+  name   = var.ssm_access_policy_name
+  policy = data.aws_iam_policy_document.ssm_access_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_ssm_access" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.ssm_access.arn
+}
+
+resource "aws_ssm_parameter" "database_uri" {
+  name  = var.database_uri_name
+  type  = "SecureString"
+  value = var.database_uri_value
+}
+
+resource "aws_ssm_parameter" "jwt_secret" {
+  name  = var.jwt_secret_name
+  type  = "SecureString"
+  value = var.jwt_secret_value
+}
+
 resource "aws_ecs_task_definition" "task_definition" {
   family                = var.ecs_task_family
   container_definitions = <<DEFINITION
@@ -46,6 +68,16 @@ resource "aws_ecs_task_definition" "task_definition" {
         {
             "name": "PORT",
             "value": "${var.container_port}"
+        }
+        ],
+        "secrets": [
+        {
+            "name": "DATABASE_URI",
+            "valueFrom": "${aws_ssm_parameter.database_uri.arn}"
+        },
+        {
+            "name": "JWT_SECRET",
+            "valueFrom": "${aws_ssm_parameter.jwt_secret.arn}"
         }
         ]
     }

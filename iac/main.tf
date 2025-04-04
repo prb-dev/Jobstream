@@ -29,10 +29,12 @@ module "ecs" {
   application_load_balancer_name = local.application_load_balancer_name
   target_group_name              = local.target_group_name
   ecs_service_name               = local.ecs_service_name
-  VAL                            = local.VAL
-  SECRET                         = var.SECRET
   aws_region                     = local.aws_region
-  aws_account_id                 = var.aws_account_id
+  database_uri_name              = local.database_uri_name
+  database_uri_value             = var.database_uri_value
+  jwt_secret_name                = local.jwt_secret_name
+  jwt_secret_value               = var.jwt_secret_value
+  ssm_access_policy_name         = local.ssm_access_policy_name
 }
 
 module "gateway" {
