@@ -43,3 +43,10 @@ module "gateway" {
   http_api_name     = local.http_api_name
   load_balancer_dns = module.ecs.load_balancer_dns
 }
+
+module "gateway" {
+  source = "./modules/gateway"
+
+  http_api_name     = local.http_api_name
+  load_balancer_dns = module.ecs.load_balancer_dns
+}

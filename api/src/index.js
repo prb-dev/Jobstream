@@ -5,6 +5,7 @@ import { logger } from "./utils/logger.util.js";
 import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import jobRoutes from "./routes/job.route.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -26,6 +27,13 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
+// Mount the job routes
+app.use("/api/jobs", jobRoutes);
 
 app.use(errorMiddleware);
 
