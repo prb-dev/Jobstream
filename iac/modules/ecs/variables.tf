@@ -48,27 +48,37 @@ variable "repository_url" {
   type        = string
 }
 
-variable "VAL" {
-  description = "Env value"
-  type        = string
-}
-
-variable "SECRET" {
-  description = "Secret"
-  type        = string
-}
-
 variable "aws_region" {
   description = "The AWS region"
   type        = string
 }
 
-variable "aws_account_id" {
-  description = "The AWS account ID"
+variable "container_name" {
+  description = "The name of the container"
   type        = string
 }
 
-variable "container_name" {
-  description = "The name of the container"
+variable "database_uri_name" {
+  description = "The name of the database URI"
+  type        = string
+}
+
+variable "database_uri_value" {
+  description = "The value of the database URI"
+  type        = string
+}
+
+variable "jwt_secret_name" {
+  description = "The name of the database URI"
+  type        = string
+}
+
+variable "jwt_secret_value" {
+  description = "The value of the database URI"
+  type        = string
+}
+
+variable "ssm_access_policy_name" {
+  description = "The name of the SSM access policy"
   type        = string
 }

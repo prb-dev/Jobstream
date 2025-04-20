@@ -13,4 +13,7 @@ locals {
   VAL                            = "hello from .env"
   aws_region                     = "eu-north-1"
   http_api_name                  = "jobstream"
+  database_uri_name              = "/jobstream/database_uri"
+  jwt_secret_name                = "/jobstream/jwt_secret"
+  ssm_access_policy_name         = "jobstream"
 }
