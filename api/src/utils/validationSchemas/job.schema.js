@@ -12,3 +12,11 @@ export const filterJobsSchema = Joi.object({
   page: Joi.number().integer().min(1).default(1),
   limit: Joi.number().integer().min(1).default(10),
 });
+
+export const getJobSchema = Joi.object({
+  id: Joi.string()
+    .regex(/^[0-9a-fA-F]{24}$/)
+    .messages({
+      "string.pattern.base": "Job id must be a valid ObjectId",
+    }),
+});
