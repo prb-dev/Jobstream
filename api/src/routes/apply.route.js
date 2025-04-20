@@ -5,9 +5,9 @@ import {
   deleteApplication,
   getAllApplications,
   getSingleApplication,
-} from "../../controllers/apply/index.js";
+} from "../controllers/apply/index.js";
 
-import { verifyToken } from "../../middlewares/verifyToken.middleware.js";
+import { verifyToken } from "../middlewares/verifyToken.middleware.js";
 import { verifyUser } from "../middlewares/verifyUser.middleware.js";
 import { verifyEmployer } from "../middlewares/verifyEmployer.middleware.js";
 
