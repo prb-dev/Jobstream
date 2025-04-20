@@ -82,3 +82,13 @@ variable "ssm_access_policy_name" {
   description = "The name of the SSM access policy"
   type        = string
 }
+
+variable "database_uri_value" {
+  description = "The value of the database URI"
+  type        = string
+}
+
+variable "ecs_cloudwatch_logs_policy_name" {
+  description = "The name of the ECS cloudwatch logs policy"
+  type        = string
+}
