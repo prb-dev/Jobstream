@@ -6,6 +6,7 @@ import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import jobRoutes from "./routes/job.route.js";
+import applyRoutes from "./routes/apply.route.js"; // Assuming you have a separate route file for apply
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -34,6 +35,7 @@ app.get("/health", (req, res) => {
 
 // Mount the job routes
 app.use("/api/jobs", jobRoutes);
+app.use("/api/apply", applyRoutes);
 
 app.use(errorMiddleware);
 
