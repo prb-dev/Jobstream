@@ -83,8 +83,8 @@ variable "ssm_access_policy_name" {
   type        = string
 }
 
-variable "aws_account_id" {
-  description = "The AWS account ID"
+variable "database_uri_value" {
+  description = "The value of the database URI"
   type        = string
 }
 
