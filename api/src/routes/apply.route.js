@@ -13,10 +13,10 @@ import { verifyEmployer } from "../middlewares/verifyEmployer.middleware.js";
 
 const router = Router();
 
-router.post("/:jobId", verifyToken, verifyUser, applyToJob);
-router.put("/:applicationId", verifyToken, verifyUser, updateApplication);
-router.delete("/:applicationId", verifyToken, verifyUser, deleteApplication);
-router.get("/", verifyToken, verifyEmployer, getAllApplications);
+router.post("/:jobId", verifyToken, applyToJob);
+router.put("/:applicationId", verifyToken, updateApplication);
+router.delete("/:applicationId", verifyToken, deleteApplication);
+router.get("/", verifyToken, getAllApplications);
 router.get("/:applicationId", verifyToken, getSingleApplication);
 
 export default router;
