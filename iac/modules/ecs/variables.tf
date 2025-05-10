@@ -82,3 +82,13 @@ variable "ssm_access_policy_name" {
   description = "The name of the SSM access policy"
   type        = string
 }
+
+variable "aws_account_id" {
+  description = "The AWS account ID"
+  type        = string
+}
+
+variable "ecs_cloudwatch_logs_policy_name" {
+  description = "The name of the ECS cloudwatch logs policy"
+  type        = string
+}
