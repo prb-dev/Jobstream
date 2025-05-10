@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { logger } from "../utils/logger.util.js";
 
 export const verifyToken = (req, res, next) => {
-  console.log("REQ COOKIES:", req.cookies);
   const token = req.cookies.token;
 
   if (!token) {

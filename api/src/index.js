@@ -6,7 +6,7 @@ import helmet from "helmet";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import jobRoutes from "./routes/job.route.js";
-import applyRoutes from "./routes/apply.route.js"; // Assuming you have a separate route file for apply
+import applyRoutes from "./routes/apply.route.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
