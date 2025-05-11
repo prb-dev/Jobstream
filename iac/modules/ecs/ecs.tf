@@ -36,6 +36,16 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_ssm_access" {
   policy_arn = aws_iam_policy.ssm_access.arn
 }
 
+resource "aws_iam_policy" "ecs_cloudwatch_logs" {
+  name   = var.ecs_cloudwatch_logs_policy_name
+  policy = data.aws_iam_policy_document.ecs_cloudwatch_logs_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_ecs_cloudwatch_logs" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.ecs_cloudwatch_logs.arn
+}
+
 resource "aws_ssm_parameter" "database_uri" {
   name  = var.database_uri_name
   type  = "SecureString"
@@ -49,40 +59,49 @@ resource "aws_ssm_parameter" "jwt_secret" {
 }
 
 resource "aws_ecs_task_definition" "task_definition" {
-  family                = var.ecs_task_family
-  container_definitions = <<DEFINITION
-  [
+  family = var.ecs_task_family
+  container_definitions = jsonencode([
     {
-        "name": "${var.ecs_task_name}",
-        "image": "${var.repository_url}",
-        "cpu": 256,
-        "memory": 512,
-        "essential": true,
-        "portMappings": [
+      name : var.ecs_task_name,
+      image : var.repository_url,
+      cpu : 256,
+      memory : 512,
+      essential : true,
+      portMappings : [
         {
-            "containerPort": ${var.container_port},
-            "hostPort": ${var.container_port}
+          containerPort : var.container_port,
+          hostPort : var.container_port
         }
-        ],
-        "environment": [
+      ],
+      environment : [
         {
-            "name": "PORT",
-            "value": "${var.container_port}"
+          name : "PORT",
+          value : tostring(var.container_port)
         }
-        ],
-        "secrets": [
+      ],
+      secrets : [
         {
-            "name": "DATABASE_URI",
-            "valueFrom": "${aws_ssm_parameter.database_uri.arn}"
+          name : "MONGODB_URI",
+          valueFrom : aws_ssm_parameter.database_uri.arn
         },
         {
-            "name": "JWT_SECRET",
-            "valueFrom": "${aws_ssm_parameter.jwt_secret.arn}"
+          name : "JWT_SECRET",
+          valueFrom : aws_ssm_parameter.jwt_secret.arn
         }
-        ]
+      ],
+      logConfiguration : {
+        logDriver : "awslogs",
+        options : {
+          awslogs-group : "/ecs/${var.ecs_task_name}",
+          awslogs-region : var.aws_region,
+          awslogs-stream-prefix : "ecs",
+          awslogs-create-group : "true",
+          mode : "non-blocking",
+          max-buffer-size : "25m"
+        }
+      }
     }
-  ]
-  DEFINITION
+  ])
 
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"

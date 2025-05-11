@@ -19,3 +19,15 @@ data "aws_iam_policy_document" "ssm_access_policy" {
     ]
   }
 }
+
+data "aws_iam_policy_document" "ecs_cloudwatch_logs_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = ["arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:/ecs/*"]
+  }
+}
