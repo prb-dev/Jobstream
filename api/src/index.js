@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/health", (req, res) => {
-  res.send("OK");
+  res.send("OK new");
 });
 
 // Mount the job routes
